@@ -1,7 +1,8 @@
 {
   "name": "myNode",
   "version": "0.1.0",
-  "description": "myNode",
+  "subdomain":"pffair", 
+  "description": "myVedio",
   "main": "./server/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified! Configure in package.json\" && exit 1"
