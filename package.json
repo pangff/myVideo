@@ -4,7 +4,7 @@
   "subdomain":"pffair", 
   "description": "myVedio",
   "main": "./server/index.js",
-  "scripts":{"start":"./server/server.js"},
+  "scripts":{"start":"./server/index.js"},
   "repository": "",
   "keywords": [
     "Node.js",
