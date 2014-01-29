@@ -31,53 +31,48 @@ function upload(response, request) {
 		response.writeHead(200, {
 			"Content-Type" : "text/html"
 		});
-		response.write("received image <a href='/show' >test.png</a>");
+		response.write("<html>"
+						+ "<body>"
+						+ "<meta http-equiv='Content-Type' content='text/html;charset=utf-8'>"
+						+ "<h1 style='text-align: center'><b>HTML</b></h1>"
+						+ "<div id='playercontainer'></div>"
+						+ "<script type='text/javascript'"
+						+ "src='http://cybertran.baidu.com/cloud/media/assets/cyberplayer/1.0"
+						+ "/cyberplayer.min.js'></script>"
+						+ "<script type='text/javascript'>"
+						+ "var player = cyberplayer('playercontainer').setup({"
+						+ "width : 680,"
+						+ "height : 400,"
+						+ "backcolor : '#FFFFFF',"
+						+ "stretching : 'uniform',"
+						+ "file : '/show',"
+						+ "image : 'http://www.example.com/image/name/snap.jpg',"
+						+ "autoStart : true,"
+						+ "repeat : 'always',"
+						+ "volume : 100,"
+						+ "controlbar : 'top',"
+						+ "ak:'vPRI2OYEZVunFrD9',"
+						+ "sk:'x43W4OQI5bkA2yDd'" + "});"
+						+ "</script>"
+						+ "    <!--播放器代码结束-->" + "</div>"
+						+ "</body>" + "</html>");
 		response.end();
 	});
 }
 
 function show(response) {
-	console.log("Request handler 'show' was called.");
-	path.exists('/tmp/test.mp4', function (exists) {
-	    if(exists){
-	    	    console.log("显示视频!");
-	    	    response.writeHead(200, {
-				"Content-Type" : "text/html"
-			});
-			response.write("<html>"
-							+ "<body>"
-							+ "<meta http-equiv='Content-Type' content='text/html;charset=utf-8'>"
-							+ "<h1 style='text-align: center'><b>HTML</b></h1>"
-							+ "<div id='playercontainer'></div>"
-							+ "<script type='text/javascript'"
-							+ "src='http://cybertran.baidu.com/cloud/media/assets/cyberplayer/1.0"
-							+ "/cyberplayer.min.js'></script>"
-							+ "<script type='text/javascript'>"
-							+ "var player = cyberplayer('playercontainer').setup({"
-							+ "width : 680,"
-							+ "height : 400,"
-							+ "backcolor : '#FFFFFF',"
-							+ "stretching : 'uniform',"
-							+ "file : '/tmp/test.mp4',"
-							+ "image : 'http://www.example.com/image/name/snap.jpg',"
-							+ "autoStart : true,"
-							+ "repeat : 'always',"
-							+ "volume : 100,"
-							+ "controlbar : 'top',"
-							+ "ak:'vPRI2OYEZVunFrD9',"
-							+ "sk:'x43W4OQI5bkA2yDd'" + "});"
-							+ "</script>"
-							+ "    <!--播放器代码结束-->" + "</div>"
-							+ "</body>" + "</html>");
-			response.end();
-	    	}else{
-	    		response.writeHead(500, {
-					"Content-Type" : "text/plain"
-			});
-			response.write("文件不存在!");
-			response.end();
-	    	}
-	});
+	  console.log("Request handler 'show' was called.");
+	  fs.readFile("/tmp/test.mp4", "binary", function(error, file) {
+	    if(error) {
+	      response.writeHead(500, {"Content-Type": "text/plain"});
+	      response.write(error + "\n");
+	      response.end();
+	    } else {
+	      response.writeHead(200, {"Content-Type": "video/mp4"});
+	      response.write(file, "binary");
+	      response.end();
+	    }
+	  });
 }
 
 exports.start = start;
