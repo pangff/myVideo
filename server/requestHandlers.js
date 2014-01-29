@@ -40,6 +40,7 @@ function show(response) {
 	console.log("Request handler 'show' was called.");
 	fs.exists('/tmp/test.mp4', function (exists) {
 	    if(exists){
+	    	    console.log("显示视频!");
 	    	    response.writeHead(200, {
 				"Content-Type" : "text/html"
 			});
