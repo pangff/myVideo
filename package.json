@@ -4,16 +4,14 @@
   "subdomain":"pffair", 
   "description": "myVedio",
   "main": "./server/server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified! Configure in package.json\" && exit 1"
-  },
+  "scripts":{"start":"./server/server.js"},
   "repository": "",
   "keywords": [
     "Node.js",
     "Eclipse",
     "Nodeclipse"
   ],
-  "author": "",
+  "author": "pangff",
   "license": "BSD",
   "readmeFilename": "README.md"
 }
