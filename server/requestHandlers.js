@@ -32,8 +32,8 @@ function upload(response, request) {
     console.log("parsing done");
     fs.renameSync(files.upload.path, "/tmp/test.png");
     response.writeHead(200, {"Content-Type": "text/html"});
-    response.write("received image:<br/>");
-    response.write("<img src='/show' />");
+    response.write("received image<br/>");
+    response.write("received image <a href='/show' >test.png</a>");
     response.end();
   });
 }
