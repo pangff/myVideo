@@ -27,7 +27,7 @@ function upload(response, request) {
 	console.log("about to parse");
 	form.parse(request, function(error, fields, files) {
 		console.log("parsing done");
-		fs.renameSync(files.upload.path, "/tmp/test.png");
+		fs.renameSync(files.upload.path, "/tmp/test.mp4");
 		response.writeHead(200, {
 			"Content-Type" : "text/html"
 		});
