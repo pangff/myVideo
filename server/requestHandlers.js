@@ -68,8 +68,16 @@ function show(response) {
 	      response.write(error + "\n");
 	      response.end();
 	    } else {
-	    	  var mimetype = mime.lookup(file);
-	      response.writeHead(200, {"Content-Type": mimetype});
+	    	  //var mimetype = mime.lookup(file);
+	      //response.writeHead(200, {"Content-Type": mimetype});
+	      response.writeHead(200, {
+              'Content-Type': 'text/html'
+          });
+
+//          response.write(file, "binary");
+//
+//          response.end();
+          
 	      response.write(file, "binary");
 	      response.end();
 	    }
