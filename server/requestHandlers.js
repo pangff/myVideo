@@ -1,5 +1,5 @@
 var querystring = require("querystring"), fs = require("fs"), formidable = require("formidable");
-var path = require("path");
+var path = require("path");var mime = require('mime');
 function start(response) {
 	console.log("Request handler 'start' was called.");
 
@@ -68,7 +68,8 @@ function show(response) {
 	      response.write(error + "\n");
 	      response.end();
 	    } else {
-	      response.writeHead(200, {"Content-Type": "application/mpeg"});
+	    	  var mimetype = mime.lookup(file);
+	      response.writeHead(200, {"Content-Type": mimetype});
 	      response.write(file, "binary");
 	      response.end();
 	    }
