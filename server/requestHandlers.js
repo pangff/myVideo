@@ -1,5 +1,5 @@
 var querystring = require("querystring"), fs = require("fs"), formidable = require("formidable");
-
+var path = require("path");
 function start(response) {
 	console.log("Request handler 'start' was called.");
 
@@ -38,7 +38,7 @@ function upload(response, request) {
 
 function show(response) {
 	console.log("Request handler 'show' was called.");
-	fs.exists('/tmp/test.mp4', function (exists) {
+	path.exists('/tmp/test.mp4', function (exists) {
 	    if(exists){
 	    	    console.log("显示视频!");
 	    	    response.writeHead(200, {
