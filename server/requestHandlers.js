@@ -68,7 +68,7 @@ function show(response) {
 	      response.write(error + "\n");
 	      response.end();
 	    } else {
-	      response.writeHead(200, {"Content-Type": "application/octet-stream"});
+	      response.writeHead(200, {"Content-Type": "application/mpeg"});
 	      response.write(file, "binary");
 	      response.end();
 	    }
