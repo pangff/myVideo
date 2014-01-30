@@ -45,7 +45,7 @@ function upload(response, request) {
 						+ "height : 400,"
 						+ "backcolor : '#FFFFFF',"
 						+ "stretching : 'uniform',"
-						+ "file : '/show',"
+						+ "file : '/tmp/test.mp4',"
 						+ "image : 'http://www.example.com/image/name/snap.jpg',"
 						+ "autoStart : true,"
 						+ "repeat : 'always',"
@@ -68,15 +68,9 @@ function show(response) {
 	      response.write(error + "\n");
 	      response.end();
 	    } else {
-	    	  //var mimetype = mime.lookup(file);
-	      //response.writeHead(200, {"Content-Type": mimetype});
-	      response.writeHead(200, {
-              'Content-Type': 'text/html'
-          });
-
-//          response.write(file, "binary");
-//
-//          response.end();
+	    	  var mimetype = mime.lookup(file);
+	      response.writeHead(200, {"Content-Type": mimetype});
+	   
           
 	      response.write(file, "binary");
 	      response.end();
