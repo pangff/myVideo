@@ -85,8 +85,7 @@ function show(response) {
 //		}
 //	});
 	response.setHeader('Content-disposition', 'attachment; filename=aaa.mp4');
-	response.setHeader('Content-type', 'application/x-msdownload'); // for
-	response.setHeader('Content-type', 'application/x-rar-compressed'); // for
+	response.setHeader('Content-type', 'application/ogg'); // for
 	var readStream = fs.createReadStream('/tmp/test.mp4');
 	readStream.on('open', function() {
 		readStream.pipe(response);
