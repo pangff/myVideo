@@ -64,7 +64,7 @@ function upload(response, request) {
 					});
 }
 
-function show(response) {
+function show(response,request) {
 	console.log("Request handler 'show' was called.");
 //	fs.readFile("/tmp/test.mp4", "binary", function(error, file) {
 //		if (error) {
@@ -84,20 +84,27 @@ function show(response) {
 //			response.end();
 //		}
 //	});
-	response.setHeader('Content-disposition', 'attachment; filename=aaa.mp4');
-	response.setHeader('Content-type', 'application/ogg'); // for
-	var readStream = fs.createReadStream('/tmp/test.mp4');
-	readStream.on('open', function() {
-		readStream.pipe(response);
-	});
-
-	readStream.on('error', function(err) {
-		console.log(err);
-		response.writeHead(200, {
-			'Content-Type' : 'text/html'
-		});
-		response.end('an error occured', 'utf-8');
-	});
+	    var stat = fs.statSync("/tmp/test.mp4");
+	    var total = stat.size;
+	    if (request.headers['range']) {
+	      var range = request.headers.range;
+	      var parts = range.replace(/bytes=/, "").split("-");
+	      var partialstart = parts[0];
+	      var partialend = parts[1];
+	   
+	      var start = parseInt(partialstart, 10);
+	      var end = partialend ? parseInt(partialend, 10) : total-1;
+	      var chunksize = (end-start)+1;
+	      console.log('RANGE: ' + start + ' - ' + end + ' = ' + chunksize);
+	   
+	      var file = fs.createReadStream("/tmp/test.mp4", {start: start, end: end});
+	      response.writeHead(206, { 'Content-Range': 'bytes ' + start + '-' + end + '/' + total, 'Accept-Ranges': 'bytes', 'Content-Length': chunksize, 'Content-Type': 'video/mp4' });
+	      file.pipe(response);
+	    } else {
+	      console.log('ALL: ' + total);
+	      response.writeHead(200, { 'Content-Length': total, 'Content-Type': 'video/mp4' });
+	      fs.createReadStream("/tmp/test.mp4").pipe(response);
+	    }
 }
 
 exports.start = start;
